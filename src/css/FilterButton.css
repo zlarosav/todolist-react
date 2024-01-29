@@ -1,0 +1,49 @@
+.filter-button {
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.3s;
+  border: 0;
+  background: none;
+  display: flex;
+  align-items: center;
+}
+
+.filter-button svg {
+  width: 40px;
+  height: 40px;
+  transition: fill 0.3s, stroke 0.3s;
+}
+
+.filter-button svg path {
+  stroke-width: 0.5;
+}
+
+.filter {
+  position: relative;
+  display: inline-block;
+}
+
+.filter-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 8rem;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+}
+
+.filter-content a {
+  color: black;
+  font-size: 14px;
+  padding: 0.5rem 0.8rem;
+  text-decoration: none;
+  display: block;
+}
+
+.filter-content a:hover {
+  background-color: #ddd;
+}
+
+.filter:hover .filter-content {
+  display: block;
+}
