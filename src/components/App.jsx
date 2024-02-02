@@ -12,16 +12,20 @@ import FilterButton from "./FilterButton"
 export default function App() {
   const defaultTodos = [
     { text: "Cortar cebolla", completed: true, pinned: true },
-    { text: "Pelar papa", completed: false, pinned: true },
-    { text: "Cortarse el cabello en la barbería de la esquina antes del Domingo", completed: true, pinned: false },
+    { text: "Pelar 10 bananas", completed: false, pinned: true },
+    { text: "Llorar con la llorona y con otros llorones texto largo", completed: true, pinned: false },
     { text: "Freír huevos", completed: false, pinned: false },
-    { text: "Mirar un tutorial de React", completed: true, pinned: false },
-    { text: "Mirar un tutorial de CSS", completed: false, pinned: false },
-    { text: "Mirar un tutorial de JavaScript", completed: false, pinned: false },
+    { text: "Mirar el curso de React", completed: true, pinned: false },
+    { text: "Mirar el curso de CSS", completed: false, pinned: false },
+    { text: "Mirar un curso de JavaScript", completed: false, pinned: false },
   ]
 
+  const localStorageTodos = localStorage.getItem("TODO")
+  const parsedTodos = (localStorageTodos) ? JSON.parse(localStorageTodos) : defaultTodos
+  if (!localStorageTodos) localStorage.setItem("TODO", JSON.stringify(defaultTodos))
+
   const [ searchValue, setSearchValue ] = useState("")
-  const [ todos, setTodos ] = useState(defaultTodos)
+  const [ todos, setTodos ] = useState(parsedTodos)
 
   const todosCompleted = todos.filter(todo => todo.completed).length
   const todosTotal = todos.length
@@ -33,16 +37,21 @@ export default function App() {
     return todoText.includes(searchText)
   })
 
+  const saveTodos = (newTodos) => {
+    localStorage.setItem("TODO", JSON.stringify(newTodos))
+    setTodos(newTodos)
+  }
+
   const completarTodo = (todoIndex) => {
     const newTodos = [...todos]
     newTodos[todoIndex].completed = !newTodos[todoIndex].completed
-    setTodos(newTodos)
+    saveTodos(newTodos)
   }
 
   const eliminarTodo = (todoIndex) => {
     const newTodos = [...todos]
     newTodos.splice(todoIndex, 1)
-    setTodos(newTodos)
+    saveTodos(newTodos)
   }
 
   return (
