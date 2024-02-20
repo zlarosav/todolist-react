@@ -16,7 +16,7 @@ import AppUI from "./AppUI"
 ] */
 
 export default function App() {
-  const [ todos, saveTodos ] = useLocalStorage("TODO", [])
+  const { item: todos, saveItem: saveTodos, loading, error } = useLocalStorage("TODO", [])
 
   const [ searchValue, setSearchValue ] = useState("")
 
@@ -44,6 +44,8 @@ export default function App() {
 
   return (
     <AppUI 
+      loading={loading}
+      error={error}
       todosTotal = {todosTotal}
       todosCompleted = {todosCompleted}
       searchValue = {searchValue}

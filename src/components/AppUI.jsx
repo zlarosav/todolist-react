@@ -6,6 +6,8 @@ import CreateTodoButton from "./CreateTodoButton"
 import FilterButton from "./FilterButton"
 
 export default function AppUI({
+  loading,
+  error,
   todosTotal,
   todosCompleted,
   searchValue,
@@ -33,6 +35,9 @@ export default function AppUI({
       </div>
 
       <TodoList>
+        {loading && <p>Estamos cargando...</p>}
+        {error && <p>Hubo un error en la carga.</p>}
+        {(!loading && searchedTodos.length == 0) && <p>Crea tu primer TODO</p>}
         {searchedTodos.map((todo, index) => <TodoItem 
           todo={todo.text} 
           completed={todo.completed} 
