@@ -4,6 +4,9 @@ import TodoList from "./TodoList"
 import TodoItem from "./TodoItem"
 import CreateTodoButton from "./CreateTodoButton"
 import FilterButton from "./FilterButton"
+import TodosLoading from "./TodosLoading"
+import TodosError from "./TodosError"
+import EmptyTodos from "./EmptyTodos"
 
 export default function AppUI({
   loading,
@@ -20,10 +23,12 @@ export default function AppUI({
     <section className="tasks">
       <div className="main">
         <h1>Tus tareas</h1>
-        <TodoCounter 
+        {loading && <h2>se están cargando</h2>}
+        {error && <h2>deberían estar aquí</h2>}
+        {(!loading && !error) && <TodoCounter 
           total={todosTotal} 
           completed={todosCompleted}
-        />
+        />}
         <div className="nav">
           <TodoSearch 
             searchValue={searchValue} 
@@ -35,10 +40,10 @@ export default function AppUI({
       </div>
 
       <TodoList>
-        {loading && <p>Estamos cargando...</p>}
-        {error && <p>Hubo un error en la carga.</p>}
-        {(!loading && searchedTodos.length == 0) && <p>Crea tu primer TODO</p>}
-        {searchedTodos.map((todo, index) => <TodoItem 
+        {loading && <><TodosLoading /><TodosLoading /><TodosLoading /></>}
+        {error && <TodosError />}
+        {(!loading && searchedTodos.length == 0) && <EmptyTodos />}
+        {(!loading && !error) && searchedTodos.map((todo, index) => <TodoItem 
           todo={todo.text} 
           completed={todo.completed} 
           pinned={todo.pinned} 

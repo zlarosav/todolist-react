@@ -5,7 +5,7 @@ import useLocalStorage from "../hooks/useLocalStorage"
 
 import AppUI from "./AppUI"
 
-/*   const defaultTodos = [
+const defaultTodos = [
   { text: "Cortar cebolla", completed: true, pinned: true },
   { text: "Pelar 10 bananas", completed: false, pinned: true },
   { text: "Llorar con la llorona y con otros llorones texto largo", completed: true, pinned: false },
@@ -13,11 +13,10 @@ import AppUI from "./AppUI"
   { text: "Mirar el curso de React", completed: true, pinned: false },
   { text: "Mirar el curso de CSS", completed: false, pinned: false },
   { text: "Mirar un curso de JavaScript", completed: false, pinned: false },
-] */
+]
 
 export default function App() {
-  const { item: todos, saveItem: saveTodos, loading, error } = useLocalStorage("TODO", [])
-
+  const { item: todos, saveItems: saveTodos, loading, error } = useLocalStorage("TODO", defaultTodos)
   const [ searchValue, setSearchValue ] = useState("")
 
   const todosCompleted = todos.filter(todo => todo.completed).length

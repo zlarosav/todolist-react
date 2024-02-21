@@ -21,11 +21,11 @@ export default function useLocalStorage(itemName, initialValue) {
     
         setLoading(false)
       } catch (e) {
-        console.error(e)
+        console.log(e)
         setLoading(false)
         setError(true)
       }
-    }, 5000)
+    }, 3000)
   }, [])
 
   const saveItems = (newItems) => {
