@@ -7,33 +7,28 @@ import FilterButton from "./FilterButton"
 import TodosLoading from "./TodosLoading"
 import TodosError from "./TodosError"
 import EmptyTodos from "./EmptyTodos"
+import { useContext } from "react"
+import { TodoContext } from "./TodoContext"
 
-export default function AppUI({
-  loading,
-  error,
-  todosTotal,
-  todosCompleted,
-  searchValue,
-  setSearchValue,
-  searchedTodos,
-  completarTodo,
-  eliminarTodo
-}) {
+export default function AppUI() {
+  const {
+    loading,
+    error,
+    searchedTodos,
+    completarTodo,
+    eliminarTodo
+  } = useContext(TodoContext)
+
   return (
     <section className="tasks">
       <div className="main">
         <h1>Tus tareas</h1>
         {loading && <h2>se están cargando</h2>}
         {error && <h2>deberían estar aquí</h2>}
-        {(!loading && !error) && <TodoCounter 
-          total={todosTotal} 
-          completed={todosCompleted}
-        />}
+        {(!loading && !error) && <TodoCounter />}
+        
         <div className="nav">
-          <TodoSearch 
-            searchValue={searchValue} 
-            setSearchValue={setSearchValue} 
-          />
+          <TodoSearch />
           <CreateTodoButton />
           <FilterButton />
         </div>

@@ -1,6 +1,10 @@
 import "../css/TodoSearch.css"
+import { useContext } from "react"
+import { TodoContext } from "./TodoContext"
 
-export default function TodoSearch({ searchValue, setSearchValue }) {
+export default function TodoSearch() {
+  const { searchValue, setSearchValue } = useContext(TodoContext)
+  
   return (
     <label className="search-label">
       <input type="search" placeholder="Buscar tarea" autoComplete="off" value = {searchValue} onChange={ (e) => setSearchValue(e.target.value) }/>

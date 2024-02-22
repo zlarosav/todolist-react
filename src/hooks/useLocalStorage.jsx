@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 export default function useLocalStorage(itemName, initialValue) {
-  const [ item, setsItem ] = useState(initialValue)
+  const [ item, setItem ] = useState(initialValue)
   const [ loading, setLoading ] = useState(true)
   const [ error, setError ] = useState(false)
 
@@ -16,7 +16,7 @@ export default function useLocalStorage(itemName, initialValue) {
           parsedItem = initialValue
         } else {
           parsedItem = JSON.parse(localStorageItem)
-          setsItem(parsedItem)
+          setItem(parsedItem)
         }
     
         setLoading(false)
@@ -28,10 +28,10 @@ export default function useLocalStorage(itemName, initialValue) {
     }, 3000)
   }, [])
 
-  const saveItems = (newItems) => {
+  const saveItem = (newItems) => {
     localStorage.setItem(itemName, JSON.stringify(newItems))
-    setsItem(newItems)
+    setItem(newItems)
   }
 
-  return { item, saveItems, loading, error }
+  return { item, saveItem, loading, error }
 }
