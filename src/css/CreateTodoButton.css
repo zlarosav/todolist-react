@@ -9,7 +9,7 @@
 }
 
 .create:hover {
-  transform: rotate(90deg);
+  transform: rotate(45deg);
 }
 
 .create svg {
@@ -26,8 +26,8 @@
   fill: #1F2937;
 }
 
-.create:active svg {
+/* .create:active svg {
   stroke: #ffffff;
   fill: #374151;
   transition-duration: 0s;
-}
+} */

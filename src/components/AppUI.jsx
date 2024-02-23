@@ -7,6 +7,10 @@ import FilterButton from "./FilterButton"
 import TodosLoading from "./TodosLoading"
 import TodosError from "./TodosError"
 import EmptyTodos from "./EmptyTodos"
+import EmptySearchTodos from "./EmptySearchTodos"
+import Modal from "./Modal"
+import TodoForm from "./TodoForm"
+
 import { useContext } from "react"
 import { TodoContext } from "./TodoContext"
 
@@ -16,7 +20,9 @@ export default function AppUI() {
     error,
     searchedTodos,
     completarTodo,
-    eliminarTodo
+    eliminarTodo,
+    openModal,
+    todosTotal
   } = useContext(TodoContext)
 
   return (
@@ -37,7 +43,8 @@ export default function AppUI() {
       <TodoList>
         {loading && <><TodosLoading /><TodosLoading /><TodosLoading /></>}
         {error && <TodosError />}
-        {(!loading && searchedTodos.length == 0) && <EmptyTodos />}
+        {(!loading && todosTotal == 0) && <EmptyTodos />}
+        {(!loading && todosTotal > 0 && searchedTodos.length == 0) && <EmptySearchTodos />}
         {(!loading && !error) && searchedTodos.map((todo, index) => <TodoItem 
           todo={todo.text} 
           completed={todo.completed} 
@@ -47,6 +54,12 @@ export default function AppUI() {
           onDelete = {() => eliminarTodo(index)}
         />)}
       </TodoList>
+
+      {openModal && (
+        <Modal>
+          <TodoForm />
+        </Modal>
+      )}
     </section>
   )
 }

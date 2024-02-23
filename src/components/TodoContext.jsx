@@ -3,7 +3,7 @@ import useLocalStorage from "../hooks/useLocalStorage"
 
 const TodoContext = createContext()
 
-const defaultTodos = [
+/* const defaultTodos = [
   { text: "Cortar cebolla", completed: true, pinned: true },
   { text: "Pelar 10 bananas", completed: false, pinned: true },
   { text: "Llorar con la llorona y con otros llorones texto largo", completed: true, pinned: false },
@@ -11,12 +11,13 @@ const defaultTodos = [
   { text: "Mirar el curso de React", completed: true, pinned: false },
   { text: "Mirar el curso de CSS", completed: false, pinned: false },
   { text: "Mirar un curso de JavaScript", completed: false, pinned: false },
-]
+] */
 
 function TodoProvider({ children }) {
 
-  const { item: todos, saveItem: saveTodos, loading, error } = useLocalStorage("TODO", defaultTodos)
+  const { item: todos, saveItem: saveTodos, loading, error } = useLocalStorage("TODO", [])
   const [ searchValue, setSearchValue ] = useState("")
+  const [ openModal, setOpenModal ] = useState(false)
 
   const todosCompleted = todos.filter(todo => todo.completed).length
   const todosTotal = todos.length
@@ -27,6 +28,16 @@ function TodoProvider({ children }) {
 
     return todoText.includes(searchText)
   })
+
+  const addTodo = (text) => {
+    const newTodos = [...todos]
+    newTodos.push({
+      text,
+      completed: false,
+      pinned: false
+    })
+    saveTodos(newTodos)
+  }
 
   const completarTodo = (todoIndex) => {
     const newTodos = [...todos]
@@ -49,8 +60,11 @@ function TodoProvider({ children }) {
       searchValue,
       setSearchValue,
       searchedTodos,
+      addTodo,
       completarTodo,
-      eliminarTodo
+      eliminarTodo,
+      openModal,
+      setOpenModal
     }}>
       { children }
     </TodoContext.Provider>
